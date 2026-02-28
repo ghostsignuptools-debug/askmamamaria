@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AskMaMaMaria — Your Parenting Co-Pilot</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,700;0,900;1,300;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FFF8F0;
+    --warm: #FDEBD0;
+    --coral: #E8735A;
+    --rose: #D4506A;
+    --sage: #7BAD8D;
+    --deep: #2C1A0E;
+    --gold: #F0A500;
+    --lilac: #C9A8D4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--deep);
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    background: var(--deep);
+    padding: 60px 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-left::after {
+    content: '';
+    position: absolute;
+    right: -60px;
+    top: 0;
+    width: 120px;
+    height: 100%;
+    background: var(--deep);
+    clip-path: polygon(0 0, 100% 10%, 100% 90%, 0 100%);
+    z-index: 3;
+  }
+
+  .badge {
+    display: inline-block;
+    background: var(--coral);
+    color: white;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 2px;
+    margin-bottom: 28px;
+    width: fit-content;
+  }
+
+  .hero-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(52px, 6vw, 86px);
+    font-weight: 900;
+    line-height: 0.95;
+    color: var(--cream);
+    margin-bottom: 8px;
+  }
+
+  .hero-title span {
+    color: var(--coral);
+    font-style: italic;
+  }
+
+  .hero-sub {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--lilac);
+    margin: 18px 0 36px;
+    line-height: 1.5;
+    max-width: 380px;
+  }
+
+  .cta-group {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .btn-primary {
+    background: var(--coral);
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+    padding: 16px 32px;
+    border-radius: 4px;
+    transition: all 0.25s;
+    display: inline-block;
+    border: 2px solid var(--coral);
+    letter-spacing: 0.5px;
+  }
+
+  .btn-primary:hover {
+    background: transparent;
+    color: var(--coral);
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--cream);
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 15px;
+    padding: 16px 28px;
+    border-radius: 4px;
+    border: 2px solid rgba(255,255,255,0.3);
+    transition: all 0.25s;
+    display: inline-block;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--cream);
+    background: rgba(255,255,255,0.07);
+  }
+
+  .hero-right {
+    background: var(--warm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 40px 60px 90px;
+    position: relative;
+  }
+
+  /* Decorative blobs */
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.18;
+  }
+  .blob-1 { width: 320px; height: 320px; background: var(--sage); top: -60px; right: -40px; }
+  .blob-2 { width: 200px; height: 200px; background: var(--coral); bottom: 60px; left: 80px; }
+
+  /* Chat preview card */
+  .chat-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 24px 80px rgba(44,26,14,0.15);
+    padding: 0;
+    width: 100%;
+    max-width: 380px;
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  .chat-header {
+    background: var(--deep);
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--coral), var(--rose));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .chat-header-info .name {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--cream);
+  }
+
+  .chat-header-info .status {
+    font-size: 12px;
+    color: var(--sage);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .dot { width: 7px; height: 7px; background: var(--sage); border-radius: 50%; display: inline-block; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  .chat-body { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+
+  .bubble {
+    padding: 12px 16px;
+    border-radius: 16px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    max-width: 90%;
+  }
+
+  .bubble-maria {
+    background: var(--warm);
+    color: var(--deep);
+    border-bottom-left-radius: 4px;
+    align-self: flex-start;
+  }
+
+  .bubble-user {
+    background: var(--coral);
+    color: white;
+    border-bottom-right-radius: 4px;
+    align-self: flex-end;
+    text-align: right;
+  }
+
+  .bubble-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    opacity: 0.55;
+  }
+
+  .typing { display: flex; gap: 5px; align-items: center; padding: 14px 16px; }
+  .typing span { width: 7px; height: 7px; background: var(--coral); border-radius: 50%; opacity: 0.5; animation: blink 1.2s infinite; }
+  .typing span:nth-child(2) { animation-delay: 0.2s; }
+  .typing span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes blink { 0%,100%{opacity:0.3} 50%{opacity:1} }
+
+  /* ── STRIP ── */
+  .strip {
+    background: var(--coral);
+    padding: 16px 40px;
+    display: flex;
+    gap: 60px;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .strip-item {
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .strip-item::before { content: '✦'; color: var(--gold); font-size: 12px; }
+
+  /* ── FEATURES ── */
+  .section { padding: 96px 60px; }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(36px, 4vw, 54px);
+    font-weight: 700;
+    line-height: 1.1;
+    max-width: 600px;
+    margin-bottom: 60px;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+
+  .feature-card {
+    background: white;
+    border-radius: 16px;
+    padding: 36px 30px;
+    border: 2px solid transparent;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--coral), var(--rose));
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .feature-card:hover { border-color: var(--warm); box-shadow: 0 16px 48px rgba(44,26,14,0.1); transform: translateY(-4px); }
+  .feature-card:hover::before { opacity: 1; }
+
+  .feature-icon { font-size: 36px; margin-bottom: 18px; }
+  .feature-title {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .feature-desc { font-size: 14.5px; line-height: 1.7; color: #6B5445; }
+
+  /* ── HOW IT WORKS ── */
+  .how-section {
+    background: var(--deep);
+    padding: 96px 60px;
+    color: var(--cream);
+  }
+
+  .how-section .section-label { color: var(--gold); }
+  .how-section .section-title { color: var(--cream); }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    counter-reset: steps;
+  }
+
+  .step {
+    position: relative;
+    padding-top: 20px;
+  }
+
+  .step-num {
+    font-family: 'Fraunces', serif;
+    font-size: 64px;
+    font-weight: 900;
+    color: var(--coral);
+    opacity: 0.25;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .step-title {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 10px;
+  }
+
+  .step-desc { font-size: 14px; color: rgba(255,248,240,0.6); line-height: 1.7; }
+
+  .step-connector {
+    position: absolute;
+    top: 52px;
+    right: -12px;
+    width: 24px;
+    height: 2px;
+    background: var(--coral);
+    opacity: 0.35;
+  }
+
+  .step:last-child .step-connector { display: none; }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials {
+    padding: 96px 60px;
+    background: var(--warm);
+  }
+
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 60px;
+  }
+
+  .testi-card {
+    background: white;
+    border-radius: 16px;
+    padding: 32px 28px;
+  }
+
+  .stars { color: var(--gold); font-size: 18px; margin-bottom: 16px; letter-spacing: 2px; }
+
+  .testi-text {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 17px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: var(--deep);
+  }
+
+  .testi-author {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--coral);
+    letter-spacing: 0.5px;
+  }
+
+  /* ── SHARE ── */
+  .share-section {
+    background: linear-gradient(135deg, var(--coral) 0%, var(--rose) 100%);
+    padding: 80px 60px;
+    text-align: center;
+  }
+
+  .share-section h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 900;
+    color: white;
+    margin-bottom: 16px;
+  }
+
+  .share-section p {
+    color: rgba(255,255,255,0.85);
+    font-size: 17px;
+    max-width: 560px;
+    margin: 0 auto 40px;
+    line-height: 1.6;
+  }
+
+  .share-buttons {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    color: var(--rose);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 14px 26px;
+    border-radius: 6px;
+    transition: all 0.2s;
+    border: 2px solid white;
+  }
+
+  .share-btn:hover {
+    background: transparent;
+    color: white;
+  }
+
+  .share-btn .icon { font-size: 18px; }
+
+  .link-box {
+    margin-top: 36px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    background: rgba(255,255,255,0.15);
+    border: 1.5px solid rgba(255,255,255,0.4);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .link-box span {
+    padding: 12px 20px;
+    color: white;
+    font-size: 13px;
+    font-family: monospace;
+    letter-spacing: 0.5px;
+  }
+
+  .copy-btn {
+    background: white;
+    color: var(--rose);
+    border: none;
+    padding: 12px 20px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .copy-btn:hover { background: var(--cream); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--deep);
+    padding: 48px 60px;
+    text-align: center;
+  }
+
+  footer .logo {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--cream);
+    margin-bottom: 8px;
+  }
+
+  footer p { color: rgba(255,248,240,0.4); font-size: 13px; margin-top: 12px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-left::after { display: none; }
+    .hero-right { padding: 60px 30px; }
+    .features-grid, .steps, .testi-grid { grid-template-columns: 1fr; }
+    .step-connector { display: none; }
+    .section, .how-section, .testimonials, .share-section { padding: 60px 24px; }
+    .strip { gap: 24px; }
+  }
+
+  /* Entrance animation */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(28px);
+    animation: fadeUp 0.7s ease forwards;
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-left .badge { animation-delay: 0.1s; }
+  .hero-left .hero-title { animation-delay: 0.2s; }
+  .hero-left .hero-sub { animation-delay: 0.3s; }
+  .hero-left .cta-group { animation-delay: 0.4s; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="badge fade-up">✦ Powered by Poe AI</div>
+    <h1 class="hero-title fade-up">Ask<span>MaMa</span>Maria</h1>
+    <p class="hero-sub fade-up">Your AI parenting coach, grounded in Montessori science — always calm, always kind, always ready.</p>
+    <div class="cta-group fade-up">
+      <a href="https://poe.com/invite/5ea0c1ddafbb40caa488cdf935874dc2" target="_blank" class="btn-primary">💬 Chat with Maria Free</a>
+      <a href="#share" class="btn-outline">Share with a Friend →</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="chat-card">
+      <div class="chat-header">
+        <div class="avatar">🌸</div>
+        <div class="chat-header-info">
+          <div class="name">AskMaMaMaria</div>
+          <div class="status"><span class="dot"></span> Online • Always here for you</div>
+        </div>
+      </div>
+      <div class="chat-body">
+        <div class="bubble bubble-maria">
+          <div class="bubble-label">Maria</div>
+          Hi there! 👋 My toddler is having a full meltdown — what should I say right now?
+        </div>
+        <div class="bubble bubble-user">
+          <div class="bubble-label">You</div>
+          Help! She's on the floor screaming 😅
+        </div>
+        <div class="bubble bubble-maria">
+          <div class="bubble-label">Maria</div>
+          Take a breath — you've got this! Try: <strong>"I see you're really upset. I'm right here with you."</strong> Don't try to fix it yet, just be present. 💛
+        </div>
+        <div class="bubble bubble-user" style="background:var(--sage)">
+          <div class="bubble-label">You</div>
+          It worked!! Thank you 🙏
+        </div>
+        <div style="align-self:flex-start; background: var(--warm); border-radius:16px; border-bottom-left-radius:4px;">
+          <div class="typing"><span></span><span></span><span></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-item">Montessori-Backed Methods</div>
+  <div class="strip-item">Emotionally Intelligent Responses</div>
+  <div class="strip-item">Meltdown-Ready Scripts</div>
+  <div class="strip-item">Free on Poe</div>
+  <div class="strip-item">Share & Earn</div>
+</div>
+
+<!-- FEATURES -->
+<section class="section">
+  <p class="section-label">Why Parents Love It</p>
+  <h2 class="section-title">Real parenting moments deserve real, science-backed answers.</h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🧠</div>
+      <h3 class="feature-title">Montessori Wisdom, Instantly</h3>
+      <p class="feature-desc">Every response draws on decades of child development research. No fluff, just proven techniques that actually work for your unique child.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💬</div>
+      <h3 class="feature-title">Scripts for Tough Moments</h3>
+      <p class="feature-desc">Exactly what to say (and NOT say) during tantrums, defiance, big emotions, and transitions. Stop second-guessing at 7am.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🌱</div>
+      <h3 class="feature-title">Builds Self-Regulation</h3>
+      <p class="feature-desc">Maria's techniques help your child learn to manage their own feelings — skills they'll carry into adulthood.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">😂</div>
+      <h3 class="feature-title">A Sense of Humor</h3>
+      <p class="feature-desc">Parenting is hard. Maria brings warmth and laughter to the heavy moments so you don't feel so alone in the chaos.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3 class="feature-title">Instant, 24/7 Support</h3>
+      <p class="feature-desc">No appointment needed. Whether it's 3am or mid-school-pickup, Maria answers in seconds with calm, thoughtful guidance.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💸</div>
+      <h3 class="feature-title">Totally Free to Start</h3>
+      <p class="feature-desc">Access Maria free on Poe. Sign up once and get access to one of the most thoughtful parenting AI tools available today.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section">
+  <p class="section-label">Getting Started</p>
+  <h2 class="section-title">You're four steps away from calmer parenting.</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-connector"></div>
+      <div class="step-num">01</div>
+      <h3 class="step-title">Click the Link</h3>
+      <p class="step-desc">Tap "Chat with Maria Free" to open the invite link. You'll land directly on the AskMaMaMaria chatbot page on Poe.</p>
+    </div>
+    <div class="step">
+      <div class="step-connector"></div>
+      <div class="step-num">02</div>
+      <h3 class="step-title">Create a Free Poe Account</h3>
+      <p class="step-desc">Sign up in under 60 seconds using your email or Google. No credit card needed to get started.</p>
+    </div>
+    <div class="step">
+      <div class="step-connector"></div>
+      <div class="step-num">03</div>
+      <h3 class="step-title">Ask Maria Anything</h3>
+      <p class="step-desc">Describe your parenting challenge and get an immediate, personalized, Montessori-informed response.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <h3 class="step-title">Share & Help Others</h3>
+      <p class="step-desc">Know another parent who needs this? Share the link. Every referral helps the AskMaMaMaria community grow. 💛</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <p class="section-label">Parent Stories</p>
+  <h2 class="section-title" style="margin-bottom:0">Families who found their calm.</h2>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"I was at my wit's end during the witching hour. Maria gave me a script to try in 10 seconds flat — and my 4-year-old actually listened. I literally cried."</p>
+      <p class="testi-author">— Jasmine R., mom of two</p>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"As a first-time dad I had zero confidence. AskMaMaMaria taught me how to validate emotions without caving. My son has been so much calmer."</p>
+      <p class="testi-author">— David K., first-time father</p>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"The humor in the responses actually made me laugh in the middle of a stressful moment. This bot gets it. I've sent it to my entire mom group."</p>
+      <p class="testi-author">— Monica T., mom of three</p>
+    </div>
+  </div>
+</section>
+
+<!-- SHARE -->
+<section class="share-section" id="share">
+  <h2>Know a Parent Who Needs This?</h2>
+  <p>Share AskMaMaMaria and help another family find their calm. Every share means one less stressed-out parent tonight. 🧡</p>
+  <div class="share-buttons">
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https://poe.com/invite/5ea0c1ddafbb40caa488cdf935874dc2" target="_blank" class="share-btn">
+      <span class="icon">📘</span> Share on Facebook
+    </a>
+    <a href="https://twitter.com/intent/tweet?text=This%20AI%20chatbot%20just%20saved%20my%20sanity%20as%20a%20parent%20🧡%20Check%20out%20AskMaMaMaria%20on%20Poe!%20https://poe.com/invite/5ea0c1ddafbb40caa488cdf935874dc2" target="_blank" class="share-btn">
+      <span class="icon">🐦</span> Post on X / Twitter
+    </a>
+    <a href="whatsapp://send?text=Have%20you%20tried%20AskMaMaMaria%3F%20It%27s%20a%20free%20AI%20parenting%20coach%20on%20Poe%20that%20uses%20Montessori%20methods!%20https://poe.com/invite/5ea0c1ddafbb40caa488cdf935874dc2" target="_blank" class="share-btn">
+      <span class="icon">💬</span> Share on WhatsApp
+    </a>
+    <a href="https://poe.com/invite/5ea0c1ddafbb40caa488cdf935874dc2" target="_blank" class="share-btn" style="background:var(--deep); color:white; border-color:var(--deep);">
+      <span class="icon">🌸</span> Open on Poe
+    </a>
+  </div>
+  <div class="link-box">
+    <span>poe.com/invite/5ea0c1ddafbb40caa488cdf935874dc2</span>
+    <button class="copy-btn" onclick="navigator.clipboard.writeText('https://poe.com/invite/5ea0c1ddafbb40caa488cdf935874dc2'); this.textContent='Copied! ✓'">Copy Link</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">🌸 AskMaMaMaria</div>
+  <p style="color:rgba(255,248,240,0.7); font-size:14px; margin-top:8px;">Your AI co-pilot for early childhood development — powered by Poe.</p>
+  <p>© 2025 AskMaMaMaria • <a href="https://poe.com/invite/5ea0c1ddafbb40caa488cdf935874dc2" style="color:var(--coral); text-decoration:none;">Start chatting free on Poe →</a></p>
+</footer>
+
+</body>
+</html>
