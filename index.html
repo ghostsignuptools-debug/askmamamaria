@@ -528,6 +528,7 @@
   footer p { color: rgba(255,248,240,0.4); font-size: 13px; margin-top: 12px; }
 
   /* ── RESPONSIVE ── */
+  /* ── TABLET (max 900px) ── */
   @media (max-width: 900px) {
     .hero { grid-template-columns: 1fr; }
     .hero-left::after { display: none; }
@@ -536,6 +537,74 @@
     .step-connector { display: none; }
     .section, .how-section, .testimonials, .share-section { padding: 60px 24px; }
     .strip { gap: 24px; }
+  }
+
+  /* ── MOBILE (max 600px) ── */
+  @media (max-width: 600px) {
+    /* Hero */
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 48px 24px 36px; }
+    .hero-left::after { display: none; }
+    .hero-title { font-size: 48px; line-height: 1; }
+    .hero-sub { font-size: 16px; margin: 14px 0 28px; max-width: 100%; }
+    .badge { font-size: 10px; }
+    .btn-primary, .btn-outline { font-size: 14px; padding: 14px 22px; width: 100%; text-align: center; display: block; }
+    .cta-group { flex-direction: column; gap: 10px; }
+    .hero-right { padding: 32px 20px 40px; display: flex; justify-content: center; }
+    .chat-card { max-width: 100%; width: 100%; }
+    .bubble { font-size: 13px; }
+
+    /* Strip */
+    .strip { flex-direction: column; align-items: flex-start; padding: 20px 24px; gap: 12px; }
+    .strip-item { font-size: 13px; }
+
+    /* Sections */
+    .section { padding: 52px 20px; }
+    .section-title { font-size: 28px; margin-bottom: 36px; }
+    .section-label { font-size: 10px; }
+
+    /* Features */
+    .features-grid { grid-template-columns: 1fr; gap: 16px; }
+    .feature-card { padding: 28px 22px; }
+    .feature-title { font-size: 19px; }
+    .feature-desc { font-size: 14px; }
+
+    /* How it works */
+    .how-section { padding: 52px 20px; }
+    .steps { grid-template-columns: 1fr; gap: 28px; }
+    .step-num { font-size: 48px; }
+    .step-title { font-size: 18px; }
+    .step-desc { font-size: 13px; }
+    .step-connector { display: none; }
+
+    /* Testimonials */
+    .testimonials { padding: 52px 20px; }
+    .testi-grid { grid-template-columns: 1fr; gap: 16px; }
+    .testi-card { padding: 24px 20px; }
+    .testi-text { font-size: 15px; }
+
+    /* Share section */
+    .share-section { padding: 52px 20px; }
+    .share-section h2 { font-size: 26px; }
+    .share-section p { font-size: 15px; }
+    .share-buttons { flex-direction: column; align-items: stretch; gap: 10px; }
+    .share-btn { justify-content: center; padding: 14px 20px; font-size: 14px; }
+    .link-box { flex-direction: column; width: 100%; }
+    .link-box span { font-size: 11px; padding: 12px 14px; word-break: break-all; text-align: center; }
+    .copy-btn { width: 100%; padding: 14px; font-size: 14px; }
+
+    /* Footer */
+    footer { padding: 36px 20px; }
+    footer .logo { font-size: 22px; }
+    footer p { font-size: 12px; }
+  }
+
+  /* ── SMALL MOBILE (max 380px) ── */
+  @media (max-width: 380px) {
+    .hero-title { font-size: 40px; }
+    .section-title { font-size: 24px; }
+    .hero-left { padding: 36px 18px 28px; }
+    .chat-card { font-size: 12px; }
   }
 
   /* Entrance animation */
